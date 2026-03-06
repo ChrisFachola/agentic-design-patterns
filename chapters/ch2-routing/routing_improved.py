@@ -1,6 +1,6 @@
 #%%
 from pydantic import BaseModel, Field
-
+from typing import Literal
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -22,7 +22,7 @@ except Exception as e:
 # --- Define a simple output schema for the coordinator agent ---
 class CoordinatorOutput(BaseModel):
     """Defines the expected output from the coordinator agent."""
-    decision: str = Field(..., description="The name of the handler to delegate to (e.g., 'booker', 'travel_info', 'unclear').")
+    decision: Literal["booker", "travel_info", "unclear"] = Field(..., description="The name of the handler to delegate to.")
     justification: str = Field(..., description="A brief explanation of why this handler was chosen.")
 #%%
 # --- Define Simulated Sub-Agent Handlers (equivalent to ADK sub-agents) ---
